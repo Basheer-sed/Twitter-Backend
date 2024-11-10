@@ -8,6 +8,6 @@ app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/tweet", tweetRoutes);
 
-app.listen(3000, () => {
-  console.log("Server ready at localhost:3000");
+app.listen(3001, () => {
+  console.log("Server ready at localhost:3001");
 });
