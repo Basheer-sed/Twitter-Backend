@@ -28,7 +28,10 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const getUser = await primsa.user.findUnique({ where: { id: Number(id) } });
+  const getUser = await primsa.user.findUnique({
+    where: { id: Number(id) },
+    include: { tweets: true },
+  });
   res.status(200).json(getUser);
 });
 
