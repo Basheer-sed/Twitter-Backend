@@ -1,16 +1,20 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { AuthenticateTokenResp } from "../middlewares/authMiddleWares.js";
 const router = Router();
 const prisma = new PrismaClient();
 
-router.post("/", async (req, res) => {
-  const { content, image, userId } = req.body;
+router.post("/", async (req: Request, res: AuthenticateTokenResp) => {
+  const { content, image } = req.body;
+
+  const user = res.user;
+  if (!user) throw new Error("User undefined");
   try {
     const resp = await prisma.tweet.create({
       data: {
         content,
         image,
-        userId,
+        userId: user?.id,
       },
     });
     res.status(200).json(resp);
